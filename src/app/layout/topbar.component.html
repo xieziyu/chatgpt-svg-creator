@@ -1,0 +1,25 @@
+<div class="layout-topbar">
+  <a class="layout-topbar-logo" routerLink="">
+    <img src="assets/logo.svg" alt="logo" />
+    <span>ChatGPT SVG Creator</span>
+  </a>
+
+  <button
+    #topbarmenubutton
+    class="p-link layout-topbar-menu-button layout-topbar-button"
+    (click)="layoutService.showProfileSidebar()">
+    <i class="pi pi-ellipsis-v"></i>
+  </button>
+
+  <div
+    class="layout-topbar-menu"
+    [ngClass]="{ 'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible }">
+    <a
+      class="p-link layout-topbar-button"
+      href="https://github.com/xieziyu/chatgpt-svg-creator"
+      target="_blank">
+      <i class="pi pi-github"></i>
+      <span>GitHub</span>
+    </a>
+  </div>
+</div>

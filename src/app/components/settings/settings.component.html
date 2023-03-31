@@ -1,0 +1,42 @@
+<button class="layout-config-button p-link" type="button" (click)="onConfigButtonClick()">
+  <i class="pi pi-cog"></i>
+</button>
+
+<p-sidebar
+  [(visible)]="visible"
+  position="right"
+  [transitionOptions]="'.3s cubic-bezier(0, 0, 0.2, 1)'"
+  styleClass="layout-config-sidebar w-20rem">
+  <div class="p-fluid min-h-screen">
+    <h5>Settings</h5>
+    <p-divider></p-divider>
+    <div class="field">
+      <label htmlFor="password">OpenAI API Key</label>
+      <p-password
+        id="password"
+        [toggleMask]="true"
+        [ngModel]="apiKey"
+        [feedback]="false"
+        (ngModelChange)="apiKeyUpdate$.next($event)">
+      </p-password>
+    </div>
+    <div class="field">
+      <label htmlFor="host">OpenAI API Host</label>
+      <input
+        id="host"
+        type="text"
+        pInputText
+        [ngModel]="apiHost"
+        (ngModelChange)="apiHostUpdate$.next($event)" />
+    </div>
+    <div class="field">
+      <label htmlFor="dropdown">OpenAI Models</label>
+      <p-dropdown
+        inputId="dropdown"
+        [autoDisplayFirst]="false"
+        [options]="modelOptions"
+        [ngModel]="currentModel"
+        (ngModelChange)="currentModel$.next($event)"></p-dropdown>
+    </div>
+  </div>
+</p-sidebar>

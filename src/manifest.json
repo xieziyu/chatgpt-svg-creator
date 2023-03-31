@@ -1,0 +1,22 @@
+{
+  "name": "ChatGPT SVG Creator",
+  "version": "1.0.0",
+  "description": "An extension uses ChatGPT to create and preview SVG",
+  "manifest_version": 3,
+  "action": {},
+  "icons": {
+    "16": "assets/icon.png",
+    "32": "assets/icon.png",
+    "48": "assets/icon.png",
+    "128": "assets/icon.png"
+  },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "unlimitedStorage"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  }
+}
