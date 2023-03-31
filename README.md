@@ -4,10 +4,10 @@
   </a>
   <h3 align="center">ChatGPT SVG Creator</h3>
   <p align="center">
-    A browser extension for creating and modifying SVGs using ChatGPT
+    A browser extension for creating, modifying, and previewing SVGs using ChatGPT
   </p>
   <p align="center">
-    English | <a href="./README_CN.md">中文</a>
+    <a href="./README.md">English</a> | 中文
   </p>
 </div>
 
@@ -18,18 +18,26 @@
     <li><a href="#main-features">Main Features</a></li>
     <li><a href="#demo">Demo</a></li>
     <li><a href="#manual-installation">Manual Installation</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ul>
 </details>
 
 ## Overview
 
-With the ChatGPT SVG Creator extension, you can design and modify SVGs using natural language. It provides basic preview, import, and export functions. Please configure the OpenAI-related parameters in `Settings` before use.
+With the ChatGPT SVG Creator extension, you can design and modify SVGs using natural language, offering basic previewing, importing, and exporting capabilities.
+
+**How to use**
+
+1. Configure OpenAI-related parameters in `Settings` before using.
+2. Import an existing SVG or start from scratch.
+3. For each subsequent conversation round, GPT will append the SVG previewed on the right as a prompt.
+4. Export your work.
 
 ## Main Features
 
 * Design and modify SVGs using natural language
 * Basic SVG preview functionality
-* Support for importing and exporting SVG source code and files
+* Supports importing and exporting SVG source code and files
 
 ## Demo
 
@@ -42,7 +50,12 @@ With the ChatGPT SVG Creator extension, you can design and modify SVGs using nat
 ## Manual Installation
 
 * Download the `chatgpt-svg-creator.zip` file: [Releases](https://github.com/xieziyu/chatgpt-svg-creator/releases)
-* Unzip the file
-* Open the Chrome browser management page: `chrome://extensions`
+* Extract the file
+* Open Chrome browser's management page: `chrome://extensions`
 * Enable Developer Mode
-* Load the unpacked extension directory
+* Load the extracted extension directory
+
+## Acknowledgements
+
+* Thanks to the [ChatHub](https://github.com/chathub-dev/chathub) project for inspiring me in terms of extension page management
+

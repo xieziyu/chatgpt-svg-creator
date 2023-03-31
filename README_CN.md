@@ -4,7 +4,7 @@
   </a>
   <h3 align="center">ChatGPT SVG Creator</h3>
   <p align="center">
-    借助 ChatGPT 来创建和修改 SVG 的浏览器扩展
+    借助 ChatGPT 来创建、修改和预览 SVG 的浏览器扩展
   </p>
   <p align="center">
     <a href="./README.md">English</a> | 中文
@@ -18,12 +18,20 @@
     <li><a href="#主要功能">主要功能</a></li>
     <li><a href="#演示">演示</a></li>
     <li><a href="#手动安装">手动安装</a></li>
+    <li><a href="#致谢">致谢</a></li>
   </ul>
 </details>
 
 ## 概述
 
-借助 ChatGPT SVG Creator 扩展，我们可以使用自然语言来设计和修改 SVG，提供了基础的预览以及导入、导出功能，使用前请先在 `Settings` 中配置 OpenAI 相关的参数。
+借助 ChatGPT SVG Creator 扩展，我们可以使用自然语言来设计和修改 SVG，提供了基础的预览以及导入、导出功能。
+
+**使用方法**
+
+1. 使用前请先在 `Settings` 中配置 OpenAI 相关的参数。
+2. 导入已有的 SVG 或者从 0 开始创建。
+3. 之后进行的每轮对话，GPT 都会附加右侧预览中的 SVG 作为提示。
+4. 导出你的作品
 
 ## 主要功能
 
@@ -47,3 +55,6 @@
 * 开启开发者模式
 * 加载解压后的扩展目录
 
+## 致谢
+
+* 感谢 [ChatHub](https://github.com/chathub-dev/chathub) 项目在插件页面管理上给予我的启发
