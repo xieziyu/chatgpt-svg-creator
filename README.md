@@ -7,7 +7,7 @@
     A browser extension for creating, modifying, and previewing SVGs using ChatGPT
   </p>
   <p align="center">
-    <a href="./README.md">English</a> | 中文
+    English | <a href="./README_CN.md">中文</a>
   </p>
 </div>
 
