@@ -23,18 +23,28 @@
         <button
           pButton
           pRipple
+          *ngIf="!submitting"
           label="Clear"
           icon="pi pi-trash"
           iconPos="right"
-          class="p-button-danger"
+          class="p-button-secondary"
           (click)="clear()"></button>
+        <button
+          pButton
+          pRipple
+          *ngIf="submitting"
+          label="Stop"
+          icon="pi pi-stop-circle"
+          iconPos="right"
+          class="p-button-danger"
+          (click)="stop()"></button>
       </div>
     </div>
   </div>
 
   <div class="col-12 md:col-6">
     <div class="card">
-      <h5>SVG Preview</h5>
+      <h5>SVG {{ previewTitle }}</h5>
       <markdown ngPreserveWhitespaces clipboard [data]="svgCode | language : 'svg'"></markdown>
       <p-divider></p-divider>
       <div class="flex justify-content-center flex-wrap gap-2">
@@ -44,6 +54,7 @@
           type="button"
           icon="pi pi-file-import"
           label="Import SVG"
+          [disabled]="submitting"
           (click)="chooseFile()">
           <input
             #advancedfileinput
@@ -61,6 +72,7 @@
           icon="pi pi-file-export"
           [disabled]="!sanitizedSvg"
           label="Export SVG"
+          [disabled]="submitting"
           (click)="exportSVG()"></button>
       </div>
       <div
