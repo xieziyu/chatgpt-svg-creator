@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SettingsComponent } from './components/settings/settings.component';
 import { SvgCreatorComponent } from './components/svg-creator/svg-creator.component';
 import { LayoutComponent } from './layout/layout.component';
 

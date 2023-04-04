@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Message } from '../types';
+import { Subject } from 'rxjs';
+import { Message, StreamingResult } from '../types';
 import { ChatGPTAPIService } from './chatgpt-api.service';
 
 const SVG_REG_EXP: RegExp = /<svg[\s\S]*?<\/svg>/gi;
@@ -8,7 +9,9 @@ const SVG_REG_EXP: RegExp = /<svg[\s\S]*?<\/svg>/gi;
   providedIn: 'root',
 })
 export class CreatorService {
-  readonly systemPrompts: Message[] = [
+  public svgCode$ = new Subject<StreamingResult>();
+
+  private readonly systemPrompts: Message[] = [
     {
       role: 'user',
       content:
@@ -19,22 +22,34 @@ export class CreatorService {
       content: 'ok',
     },
   ];
+  private abortCtl?: AbortController;
 
   constructor(private api: ChatGPTAPIService) {}
 
-  async analyzeInput(msg: string, originalSVGCode: string) {
+  async analyzeInputStreaming(msg: string, originalSVGCode: string) {
     let headMsg = '';
     if (originalSVGCode) {
       headMsg += `Given the original SVG: ${originalSVGCode}\n`;
     }
-    const res = await this.api.doChat([
-      ...this.systemPrompts,
-      {
-        role: 'user',
-        content: headMsg + msg,
-      },
-    ]);
-    return res;
+    this.abortCtl = new AbortController();
+    const rsp = await this.api.doChatStream(
+      [
+        ...this.systemPrompts,
+        {
+          role: 'user',
+          content: headMsg + msg,
+        },
+      ],
+      this.svgCode$,
+      this.abortCtl.signal
+    );
+    if (!rsp) {
+      return;
+    }
+  }
+
+  stopAnalyze() {
+    this.abortCtl?.abort();
   }
 
   // 提取 SVG 代码

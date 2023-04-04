@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CreatorService } from '../../services/creator.service';
 
@@ -7,11 +7,12 @@ import { CreatorService } from '../../services/creator.service';
   templateUrl: './svg-creator.component.html',
   styleUrls: ['./svg-creator.component.scss'],
 })
-export class SvgCreatorComponent {
+export class SvgCreatorComponent implements OnInit, OnDestroy {
   userInput = '';
   sanitizedSvg: SafeHtml = '';
 
   submitting = false;
+  previewTitle = 'Preview';
 
   @ViewChild('svgPreview', { static: true })
   svgPreview?: ElementRef<HTMLElement>;
@@ -34,8 +35,31 @@ export class SvgCreatorComponent {
     this.clearFile();
   }
 
+  ngOnInit() {
+    this.previewTitle = 'Preview';
+    this.creator.svgCode$.subscribe(rs => {
+      if (rs.done) {
+        // SSE 结束后统一解析
+        const svgCodes = this.creator.extractSVGCode(rs.content);
+        if (svgCodes.length) {
+          this.svgCode = svgCodes.join('\n');
+        }
+      } else {
+        // 临时显示输出
+        this._svgCode = rs.content
+          .replace(/[\s\S]*(?=(<svg))/gi, '')
+          .replace(/(?<=(\/svg>))[\s\S]*/g, '');
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    this.creator.svgCode$.unsubscribe();
+  }
+
   async submit() {
     this.submitting = true;
+    this.previewTitle = 'Generating...';
     let svgCodes = this.creator.extractSVGCode(this.userInput);
     if (svgCodes.length) {
       this.svgCode = svgCodes.join('\n');
@@ -43,13 +67,14 @@ export class SvgCreatorComponent {
     const nonSVG = this.creator.extractNonSVGCode(this.userInput);
     // 仅在有其他内容的时候，调用 API
     if (nonSVG) {
-      const outputMsg = await this.creator.analyzeInput(this.userInput, this.svgCode);
-      svgCodes = this.creator.extractSVGCode(outputMsg);
-      if (svgCodes.length) {
-        this.svgCode = svgCodes.join('\n');
-      }
+      await this.creator.analyzeInputStreaming(this.userInput, this.svgCode);
     }
     this.submitting = false;
+    this.previewTitle = 'Preview';
+  }
+
+  stop() {
+    this.creator.stopAnalyze();
   }
 
   clear() {
@@ -59,10 +84,8 @@ export class SvgCreatorComponent {
   }
 
   exportSVG() {
-    console.log('exportSVG');
     const svg = this.svgPreview?.nativeElement.querySelector('svg');
     if (!svg) {
-      console.log('null svg');
       return;
     }
     const serializer = new XMLSerializer();
