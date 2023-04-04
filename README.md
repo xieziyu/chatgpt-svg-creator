@@ -14,6 +14,7 @@
 <details open>
   <summary>Table of Contents</summary>
   <ul>
+    <li><a href="#install">Install</a></li>
     <li><a href="#overview">Overview</a></li>
     <li><a href="#main-features">Main Features</a></li>
     <li><a href="#demo">Demo</a></li>
@@ -22,11 +23,15 @@
   </ul>
 </details>
 
+## Install
+
+[![Chrome][Chrome-image]][Chrome-url]
+
 ## Overview
 
 With the ChatGPT SVG Creator extension, you can design and modify SVGs using natural language, offering basic previewing, importing, and exporting capabilities.
 
-**How to use**
+#### How to use
 
 1. Configure OpenAI-related parameters in `Settings` before using.
 2. Import an existing SVG or start from scratch.
@@ -59,3 +64,6 @@ With the ChatGPT SVG Creator extension, you can design and modify SVGs using nat
 
 * Thanks to the [ChatHub](https://github.com/chathub-dev/chathub) project for inspiring me in terms of extension page management
 
+[Chrome-image]: https://img.shields.io/badge/-Chrome-brightgreen?logo=google-chrome&logoColor=white
+
+[Chrome-url]: https://chrome.google.com/webstore/detail/chatgpt-svg-creator/kgcmhfioeibcfbcchmmhagngnodaepcj?utm_source=website

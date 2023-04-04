@@ -14,6 +14,7 @@
 <details open>
   <summary>目录</summary>
   <ul>
+    <li><a href="#安装">安装</a></li>
     <li><a href="#概述">概述</a></li>
     <li><a href="#主要功能">主要功能</a></li>
     <li><a href="#演示">演示</a></li>
@@ -21,6 +22,10 @@
     <li><a href="#致谢">致谢</a></li>
   </ul>
 </details>
+
+## 安装
+
+[![Chrome][Chrome-image]][Chrome-url]
 
 ## 概述
 
@@ -58,3 +63,7 @@
 ## 致谢
 
 * 感谢 [ChatHub](https://github.com/chathub-dev/chathub) 项目在插件页面管理上给予我的启发
+
+[Chrome-image]: https://img.shields.io/badge/-Chrome-brightgreen?logo=google-chrome&logoColor=white
+
+[Chrome-url]: https://chrome.google.com/webstore/detail/chatgpt-svg-creator/kgcmhfioeibcfbcchmmhagngnodaepcj?utm_source=website
