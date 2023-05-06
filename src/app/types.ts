@@ -7,3 +7,9 @@ export const enum GPTModels {
   GPT_4 = 'gpt-4',
   GPT_4_32K = 'gpt-4-32k',
 }
+
+export interface PromptResponse {
+  Keywords: string[];
+  Reasoning: string;
+  SVG: string;
+}

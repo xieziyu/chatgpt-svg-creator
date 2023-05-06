@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Message, StreamingResult } from '../types';
+import { StreamingResult, PromptResponse } from '../types';
 import { ChatGPTAPIService } from './chatgpt-api.service';
+import { DefaultPrompt, GivenSVGPrompt } from './svg-prompt';
 
 const SVG_REG_EXP: RegExp = /<svg[\s\S]*?<\/svg>/gi;
 
@@ -10,34 +11,24 @@ const SVG_REG_EXP: RegExp = /<svg[\s\S]*?<\/svg>/gi;
 })
 export class CreatorService {
   public svgCode$ = new Subject<StreamingResult>();
-
-  private readonly systemPrompts: Message[] = [
-    {
-      role: 'user',
-      content:
-        'Please summarize and generate SVG code based on the description, and only return the SVG code itself. Reply "ok" to confirm.',
-    },
-    {
-      role: 'assistant',
-      content: 'ok',
-    },
-  ];
   private abortCtl?: AbortController;
 
   constructor(private api: ChatGPTAPIService) {}
 
   async analyzeInputStreaming(msg: string, originalSVGCode: string) {
-    let headMsg = '';
+    let finalMsg = '';
     if (originalSVGCode) {
-      headMsg += `Given the original SVG: ${originalSVGCode}\n`;
+      finalMsg = GivenSVGPrompt.replace(/\{svg\}/g, originalSVGCode);
+    } else {
+      finalMsg = DefaultPrompt;
     }
+    finalMsg = finalMsg.replace(/\{input\}/g, msg);
     this.abortCtl = new AbortController();
     const rsp = await this.api.doChatStream(
       [
-        ...this.systemPrompts,
         {
           role: 'user',
-          content: headMsg + msg,
+          content: finalMsg,
         },
       ],
       this.svgCode$,
@@ -61,5 +52,21 @@ export class CreatorService {
   // 提取非 SVG 内容
   extractNonSVGCode(str: string) {
     return str.replace(SVG_REG_EXP, '').trim();
+  }
+
+  // 解析结果
+  extractResult(str: string): PromptResponse {
+    try {
+      const res: PromptResponse = JSON.parse(str);
+      return res;
+    } catch (err) {
+      // 非标准 JSON 格式， fallback：
+      const svg = this.extractSVGCode(str);
+      return {
+        Keywords: [],
+        Reasoning: 'unknown',
+        SVG: svg.length ? svg.join('\n') : '',
+      };
+    }
   }
 }

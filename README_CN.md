@@ -46,11 +46,7 @@
 
 ## 演示
 
-#### 创建一个新的 SVG 并修改
-![demo1](./docs/svg-creator-demo-1.gif)
-
-#### 导入已有的 SVG 并修改
-![demo2](./docs/svg-creator-demo-2.gif)
+![demo1](./docs/demo-1.png)
 
 ## 手动安装
 

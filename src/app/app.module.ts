@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
-import { MarkdownModule } from 'ngx-markdown';
+import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { CardModule } from 'primeng/card';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { PasswordModule } from 'primeng/password';
@@ -19,6 +19,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { SidebarModule } from 'primeng/sidebar';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { TagModule } from 'primeng/tag';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -40,7 +41,14 @@ import { SettingsComponent } from './components/settings/settings.component';
   imports: [
     FormsModule,
     BrowserModule,
-    MarkdownModule.forRoot(),
+    MarkdownModule.forRoot({
+      markedOptions: {
+        provide: MarkedOptions,
+        useValue: {
+          smartLists: true,
+        },
+      },
+    }),
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
@@ -57,6 +65,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     FileUploadModule,
     SidebarModule,
     ToastModule,
+    TagModule,
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],
