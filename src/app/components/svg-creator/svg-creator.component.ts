@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CreatorService } from '../../services/creator.service';
 
@@ -12,7 +12,10 @@ export class SvgCreatorComponent implements OnInit, OnDestroy {
   sanitizedSvg: SafeHtml = '';
 
   submitting = false;
-  previewTitle = 'Preview';
+
+  keywords: string[] = [];
+  reasoning = '';
+  rawResp = '';
 
   @ViewChild('svgPreview', { static: true })
   svgPreview?: ElementRef<HTMLElement>;
@@ -36,19 +39,20 @@ export class SvgCreatorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.previewTitle = 'Preview';
+    this.keywords = [];
+    this.reasoning = '';
     this.creator.svgCode$.subscribe(rs => {
       if (rs.done) {
+        this.rawResp = '';
         // SSE 结束后统一解析
-        const svgCodes = this.creator.extractSVGCode(rs.content);
-        if (svgCodes.length) {
-          this.svgCode = svgCodes.join('\n');
-        }
+        const rsp = this.creator.extractResult(rs.content);
+        this.svgCode = rsp.SVG;
+        this.keywords = rsp.Keywords;
+        this.reasoning = rsp.Reasoning;
+        console.log(rsp);
       } else {
         // 临时显示输出
-        this._svgCode = rs.content
-          .replace(/[\s\S]*(?=(<svg))/gi, '')
-          .replace(/(?<=(\/svg>))[\s\S]*/g, '');
+        this.rawResp = rs.content;
       }
     });
   }
@@ -57,9 +61,18 @@ export class SvgCreatorComponent implements OnInit, OnDestroy {
     this.creator.svgCode$.unsubscribe();
   }
 
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) {
+      this.submit();
+    }
+  }
+
   async submit() {
+    if (this.submitting) {
+      return;
+    }
     this.submitting = true;
-    this.previewTitle = 'Generating...';
     let svgCodes = this.creator.extractSVGCode(this.userInput);
     if (svgCodes.length) {
       this.svgCode = svgCodes.join('\n');
@@ -70,7 +83,6 @@ export class SvgCreatorComponent implements OnInit, OnDestroy {
       await this.creator.analyzeInputStreaming(this.userInput, this.svgCode);
     }
     this.submitting = false;
-    this.previewTitle = 'Preview';
   }
 
   stop() {
@@ -81,6 +93,8 @@ export class SvgCreatorComponent implements OnInit, OnDestroy {
     this.userInput = '';
     this.svgCode = '';
     this.sanitizedSvg = '';
+    this.keywords = [];
+    this.reasoning = '';
   }
 
   exportSVG() {

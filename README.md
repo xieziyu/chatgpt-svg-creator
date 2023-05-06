@@ -46,11 +46,7 @@ With the ChatGPT SVG Creator extension, you can design and modify SVGs using nat
 
 ## Demo
 
-#### Create a new SVG and modify it
-![demo1](./docs/svg-creator-demo-1.gif)
-
-#### Import an existing SVG and modify it
-![demo2](./docs/svg-creator-demo-2.gif)
+![demo1](./docs/demo-1.png)
 
 ## Manual Installation
 

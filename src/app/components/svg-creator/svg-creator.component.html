@@ -40,11 +40,26 @@
           (click)="stop()"></button>
       </div>
     </div>
+    <div class="card" *ngIf="reasoning && !rawResp">
+      <h5>Reasoning</h5>
+      <div class="flex gap-2" *ngIf="keywords.length > 0">
+        <p-tag *ngFor="let keyword of keywords" [value]="keyword"></p-tag>
+      </div>
+      <p-divider></p-divider>
+      <markdown ngPreserveWhitespaces [data]="reasoning"></markdown>
+    </div>
+    <div class="card" *ngIf="rawResp">
+      <h5>Thinking</h5>
+      <markdown
+        ngPreserveWhitespaces
+        clipboard
+        [data]="rawResp | language : 'javascript'"></markdown>
+    </div>
   </div>
 
   <div class="col-12 md:col-6">
     <div class="card">
-      <h5>SVG {{ previewTitle }}</h5>
+      <h5>SVG Preview</h5>
       <markdown ngPreserveWhitespaces clipboard [data]="svgCode | language : 'svg'"></markdown>
       <p-divider></p-divider>
       <div class="flex justify-content-center flex-wrap gap-2">
