@@ -26,12 +26,13 @@ export class ChatGPTAPIService {
     }
     const apiHost = await this.config.get('openAPIHost');
     const currentModel = await this.config.get('currentModel');
+    const temperature = await this.config.get('temperature');
     const apiURL = `${apiHost}/v1/chat/completions`;
     const data = {
       model: currentModel,
-      messages: messages,
+      messages,
       max_tokens: 2048,
-      temperature: 0.5,
+      temperature,
       stream: true,
     };
     try {

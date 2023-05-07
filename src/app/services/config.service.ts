@@ -13,6 +13,7 @@ export class ConfigService {
     openAPIKey: '',
     openAPIHost: 'https://api.openai.com',
     currentModel: GPTModels.GPT_3_5_TURBO,
+    temperature: 0.5,
   };
   private init$?: Observable<void>;
 

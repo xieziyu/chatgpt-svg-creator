@@ -15,10 +15,13 @@ export class CreatorService {
 
   constructor(private api: ChatGPTAPIService) {}
 
-  async analyzeInputStreaming(msg: string, originalSVGCode: string) {
+  async analyzeInputStreaming(msg: string, originalSVGCode: string, originalReasoning: string) {
     let finalMsg = '';
     if (originalSVGCode) {
-      finalMsg = GivenSVGPrompt.replace(/\{svg\}/g, originalSVGCode);
+      finalMsg = GivenSVGPrompt.replace(/\{svg\}/g, originalSVGCode).replace(
+        /\{reasoning\}/g,
+        originalReasoning || 'unknown'
+      );
     } else {
       finalMsg = DefaultPrompt;
     }
