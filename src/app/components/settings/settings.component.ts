@@ -16,6 +16,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
   modelOptions: { label: string; value: string }[] = [];
   currentModel = '';
   currentModel$ = new Subject<string>();
+  temperature = 0.5;
+  temperatureUpdate$ = new Subject<number>();
 
   constructor(public layoutService: LayoutService, private config: ConfigService) {}
 
@@ -37,6 +39,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.apiHostUpdate$
       .pipe(debounceTime(500), distinctUntilChanged())
       .subscribe(m => this.onAPIHostChange(m));
+    this.temperatureUpdate$
+      .pipe(debounceTime(100), distinctUntilChanged())
+      .subscribe(m => this.onTemperatureChange(m));
     this.config.get('openAPIKey').then(key => {
       this.apiKey = key;
     });
@@ -45,6 +50,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
     });
     this.config.get('openAPIHost').then(host => {
       this.apiHost = host;
+    });
+    this.config.get('temperature').then(t => {
+      this.temperature = t;
     });
     this.modelOptions = this.config.modelList.map(m => ({
       label: m,
@@ -75,5 +83,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
   private onAPIHostChange(h: string) {
     this.apiHost = h;
     this.config.set('openAPIHost', h);
+  }
+
+  private onTemperatureChange(t: number) {
+    this.temperature = t;
+    this.config.set('temperature', t);
   }
 }

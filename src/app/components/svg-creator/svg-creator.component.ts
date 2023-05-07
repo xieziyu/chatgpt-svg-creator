@@ -39,8 +39,7 @@ export class SvgCreatorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.keywords = [];
-    this.reasoning = '';
+    this.clear();
     this.creator.svgCode$.subscribe(rs => {
       if (rs.done) {
         this.rawResp = '';
@@ -49,7 +48,6 @@ export class SvgCreatorComponent implements OnInit, OnDestroy {
         this.svgCode = rsp.SVG;
         this.keywords = rsp.Keywords;
         this.reasoning = rsp.Reasoning;
-        console.log(rsp);
       } else {
         // 临时显示输出
         this.rawResp = rs.content;
@@ -80,7 +78,7 @@ export class SvgCreatorComponent implements OnInit, OnDestroy {
     const nonSVG = this.creator.extractNonSVGCode(this.userInput);
     // 仅在有其他内容的时候，调用 API
     if (nonSVG) {
-      await this.creator.analyzeInputStreaming(this.userInput, this.svgCode);
+      await this.creator.analyzeInputStreaming(this.userInput, this.svgCode, this.reasoning);
     }
     this.submitting = false;
   }
@@ -95,6 +93,7 @@ export class SvgCreatorComponent implements OnInit, OnDestroy {
     this.sanitizedSvg = '';
     this.keywords = [];
     this.reasoning = '';
+    this.rawResp = '';
   }
 
   exportSVG() {

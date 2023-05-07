@@ -20,6 +20,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TagModule } from 'primeng/tag';
+import { SliderModule } from 'primeng/slider';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -66,6 +67,7 @@ import { SettingsComponent } from './components/settings/settings.component';
     SidebarModule,
     ToastModule,
     TagModule,
+    SliderModule,
   ],
   providers: [MessageService],
   bootstrap: [AppComponent],

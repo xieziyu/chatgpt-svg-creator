@@ -38,5 +38,15 @@
         [ngModel]="currentModel"
         (ngModelChange)="currentModel$.next($event)"></p-dropdown>
     </div>
+    <div class="field">
+      <label htmlFor="dropdown">Temperature</label>
+      <input type="text" pInputText [ngModel]="temperature" class="w-full" [readOnly]="true" />
+      <p-slider
+        [max]="1"
+        [step]="0.1"
+        [(ngModel)]="temperature"
+        (ngModelChange)="temperatureUpdate$.next($event)"
+        class="w-full"></p-slider>
+    </div>
   </div>
 </p-sidebar>
