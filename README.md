@@ -19,6 +19,7 @@
     <li><a href="#main-features">Main Features</a></li>
     <li><a href="#demo">Demo</a></li>
     <li><a href="#manual-installation">Manual Installation</a></li>
+    <li><a href="#web">Web</li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ul>
 </details>
@@ -55,6 +56,10 @@ With the ChatGPT SVG Creator extension, you can design and modify SVGs using nat
 * Open Chrome browser's management page: `chrome://extensions`
 * Enable Developer Mode
 * Load the extracted extension directory
+
+## Web
+
+[ChatGPT SVG Creator](https://github.com/xieziyu/chatgpt-svg-creator-web)
 
 ## Acknowledgements
 

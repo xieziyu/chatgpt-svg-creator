@@ -19,6 +19,7 @@
     <li><a href="#主要功能">主要功能</a></li>
     <li><a href="#演示">演示</a></li>
     <li><a href="#手动安装">手动安装</a></li>
+    <li><a href="#网页版">网页版</a></li>
     <li><a href="#致谢">致谢</a></li>
   </ul>
 </details>
@@ -55,6 +56,10 @@
 * 打开 Chrome 浏览器的管理页面: `chrome://extensions`
 * 开启开发者模式
 * 加载解压后的扩展目录
+
+## 网页版
+
+[ChatGPT SVG Creator](https://github.com/xieziyu/chatgpt-svg-creator-web)
 
 ## 致谢
 
