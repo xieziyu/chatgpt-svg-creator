@@ -29,6 +29,16 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.layoutService.state.configSidebarVisible = _val;
   }
 
+  get temperatureLabel(): string {
+    if (this.temperature < 1) {
+      return ' - more deterministic';
+    } else if (this.temperature > 1) {
+      return ' - more random';
+    } else {
+      return ' - balanced';
+    }
+  }
+
   ngOnInit() {
     this.apiKeyUpdate$
       .pipe(debounceTime(500), distinctUntilChanged())
