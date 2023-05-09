@@ -32,6 +32,8 @@
 
 With the ChatGPT SVG Creator extension, you can design and modify SVGs using natural language, offering basic previewing, importing, and exporting capabilities.
 
+[CHANGELOG](./CHANGELOG.md) 
+
 #### How to use
 
 1. Configure OpenAI-related parameters in `Settings` before using.
